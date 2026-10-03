@@ -107,7 +107,11 @@ async function inspect(mobile) {
       await page.evaluate(() => { const s = AppState.get('ViewController/scroll'), w = s.views[2]; s.scrollTo(w.start + (w.end - w.start) * .35, 0); });
       await page.locator('.ChatDOM a[title="-> motion"]').waitFor({ state: 'visible' });
       await page.waitForFunction(() => AppState.get('ViewController/uniforms')?.uChatOpen?.value > .99);
-      await page.locator('.ChatDOM a[title="-> motion"]').click(); await page.waitForTimeout(2800);
+      await page.locator('.ChatDOM a[title="-> motion"]').click();
+      await page.waitForFunction(() => {
+        const projects = CMSData.workPages.toJSON();
+        return projects.length > 0 && projects.every(project => project.tags.includes('motion'));
+      });
       const tags = await page.evaluate(() => CMSData.workPages.toJSON().map(p => p.tags));
       assert.ok(tags.length && tags.every(tag => tag.includes('motion'))); item.interactions.filter = { tag: 'motion', count: tags.length };
       const input = page.locator('.ChatDOM textarea').first(); await input.fill('Dispersion'); await input.press('Enter');
