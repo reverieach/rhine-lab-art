@@ -1,0 +1,35 @@
+{
+  "source": "https://activetheory.net/",
+  "publisher": "Active Theory",
+  "release": "1780406240914",
+  "snapshotDate": "2026-09-30",
+  "scope": "仅当前品牌网站所需的公开运行时、模块和场景配置",
+  "credentialRedactions": {
+    "vendor/activetheory/runtime.js": 2,
+    "vendor/activetheory/app.1780406240914.js": 2,
+    "public/assets/js/app.1780406240914.js": 2
+  },
+  "originalRuntimeSHA256": "085d3e6a46893f503262ccdaaad16f832367e709bae7ae14c369b629fdb1a5cf",
+  "includedModules": [
+    "About",
+    "AboutLogoShader",
+    "ChatDOM",
+    "ContactUI",
+    "FXScroll",
+    "Fluid",
+    "Footer",
+    "GPT",
+    "Home",
+    "HomeLogoShader",
+    "LoaderGLUI",
+    "LoaderView",
+    "MouseFluid",
+    "NavUI",
+    "VideoTexture",
+    "WorkDetail",
+    "WorkDetailContent",
+    "WorkDetailParticles",
+    "WorkItem",
+    "WorkItems"
+  ]
+}

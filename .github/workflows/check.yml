@@ -1,0 +1,29 @@
+name: Website checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  website:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: sudo apt-get install -y libgl1-mesa-dri libegl-mesa0
+      - run: xvfb-run --auto-servernum npm test
+        env:
+          PLAYWRIGHT_MESA: '1'
+          LIBGL_ALWAYS_SOFTWARE: '1'
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-diagnostics
+          path: .artifacts/*verification.json
+          include-hidden-files: true
+          retention-days: 3

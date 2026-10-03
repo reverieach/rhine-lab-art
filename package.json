@@ -1,0 +1,33 @@
+{
+  "name": "open-active-theory",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/server.mjs",
+    "start": "node scripts/server.mjs",
+    "check": "node scripts/check.mjs",
+    "verify": "node scripts/verify.mjs",
+    "verify:sync": "node scripts/verify_sync.mjs",
+    "verify:music": "node scripts/verify_music.mjs",
+    "verify:media": "node scripts/verify-media.mjs",
+    "test": "node scripts/test.mjs"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "playwright": "^1.55.0",
+    "three": "^0.181.2",
+    "sharp": "^0.34.5"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "description": "Daily Design .Art website with Active Theory Hydra/WebGL motion",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Snychng/open-active-theory.git"
+  }
+}
