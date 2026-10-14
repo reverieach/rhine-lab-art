@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: rhine-lab-art
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /__health
+    envVars:
+      - key: NODE_VERSION
+        value: 24.18.0

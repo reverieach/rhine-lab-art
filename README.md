@@ -2,6 +2,14 @@
 
 以莱茵生命为主题的个人《明日方舟》艺术研究网站。在 [open-active-theory](https://github.com/Snychng/open-active-theory) 的场景上替换品牌、十四组 CG 与文案，加入 [RhineLabUI](https://github.com/LBEILC/RhineLabUI) 的登录动画前半段。项目仓库：[reverieach/rhine-lab-art](https://github.com/reverieach/rhine-lab-art)。尚未部署公开网站。
 
+## 运行画面
+
+以下画面来自当前网站的实际录制，保留原来的实时 WebGL 渲染。采集与素材说明见 [截图来源](docs/images/README.md)。
+
+![深色莱茵生命登录欢迎页](docs/images/rhine-boot.png)
+![围绕脊柱排列的 CG 展品卡片](docs/images/rhine-archive.png)
+![第十三张展品 Belonging 的鼠标粒子扰动](docs/images/rhine-belonging.png)
+
 ## 运行
 
 需要 Node.js 24 或更新版本。
@@ -13,6 +21,18 @@ npm run dev
 ```
 
 打开 http://localhost:4199/ 。修改源文件后重新 `npm run build`，刷新浏览器。`PORT=4200 npm run dev` 可指定端口。
+
+## 展示与部署
+
+同一局域网的设备可通过 `http://<运行电脑的局域网 IP>:4199/` 访问；电脑需保持运行，防火墙需允许连接。这不是公网网址。
+
+仓库提供 [render.yaml](render.yaml)，使用 Render 新加坡区域的免费 Node Web Service，保留现有深链接、本地搜索和 WebSocket 服务，不需要数据库。当前只准备了配置，尚未创建云服务、获得公网地址或验证国内访问。
+
+部署时登录 [Render](https://dashboard.render.com/)，创建 Blueprint，连接此仓库并使用根目录配置。确认服务为 **Free**，构建命令 `npm ci --include=dev && npm run build`，启动命令 `npm start`。成功后平台分配 `onrender.com` 子域名，再检查首页、展品深链接、素材加载和音乐。国内各运营商的可达性和速度需要实际验证。
+
+[免费方案](https://render.com/docs/free)闲置 15 分钟后休眠，首次重新访问可能等待约一分钟；有实例时数、流量和构建额度。为保持零费用，不添加付款方式；超额时平台暂停相应服务或构建。若账户已有付款方式，应先核对费用控制。`plan: free` 已显式指定，不依赖平台的付费默认值。
+
+另一候选 EdgeOne Pages 的默认域名存在中国大陆访问限制：相关区域需要有效期 3 小时的预览链接，或返回 401；稳定地址需要自定义域名，参见[官方域名说明](https://edgeone.cloud.tencent.com/pages/document/175191784523485184)。本项目还包含 Node 服务和大于 25 MB 的单个资源，不应直接当作普通静态目录上传。当前未为该平台修改资源或部署。
 
 ## 已接入内容
 
