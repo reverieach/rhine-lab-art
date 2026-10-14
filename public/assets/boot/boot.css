@@ -333,5 +333,5 @@
 #rhine-stage.portrait .auth-status { left:220px; top:calc(50% + 70px); font-size:24px; }
 #rhine-stage.portrait .access-text { left:210px; top:50%; font-size:24px; }
 #rhine-stage.portrait .scan { top:50%; left:50%; transform:translate(-50%,-50%) scale(.6); }
-#rhine-stage.portrait .powered { bottom:170px; }
+#rhine-stage.portrait .powered { bottom:260px; }
 @media(prefers-reduced-motion:reduce) { #rhine-boot { transition-duration:300ms; } }
