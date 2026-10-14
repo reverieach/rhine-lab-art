@@ -10,6 +10,7 @@ import { WebSocketServer } from 'ws';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const publicDir = path.join(root, 'public');
 const port = Number(process.env.PORT || 4199);
+const host = process.env.HOST || '0.0.0.0';
 const missing = new Map();
 const threads = new Map();
 const mime = {
@@ -152,4 +153,4 @@ wss.on('connection', socket => {
   });
   socket.on('close', () => leave(socket));
 });
-server.listen(port, '0.0.0.0', () => console.log(`Rhine Lab · Art Archive：http://localhost:${server.address().port}`));
+server.listen(port, host, () => console.log(`Rhine Lab · Art Archive：http://localhost:${server.address().port}`));

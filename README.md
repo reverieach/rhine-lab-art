@@ -1,6 +1,6 @@
 # RHINE LAB — The shape of a dream
 
-以莱茵生命为主题的个人《明日方舟》艺术研究网站。在 [open-active-theory](https://github.com/Snychng/open-active-theory) 的场景上替换品牌、十四组 CG 与文案，加入 [RhineLabUI](https://github.com/LBEILC/RhineLabUI) 的登录动画前半段。项目仓库：[reverieach/rhine-lab-art](https://github.com/reverieach/rhine-lab-art)。尚未部署公开网站。
+以莱茵生命为主题的个人《明日方舟》艺术研究网站。在 [open-active-theory](https://github.com/Snychng/open-active-theory) 的场景上替换品牌、十四组 CG 与文案，加入 [RhineLabUI](https://github.com/LBEILC/RhineLabUI) 的登录动画前半段。项目仓库：[reverieach/rhine-lab-art](https://github.com/reverieach/rhine-lab-art)。已部署至阿里云，正式公网访问仍等待备案审核及验收。
 
 ## 运行画面
 
@@ -23,6 +23,12 @@ npm run dev
 打开 http://localhost:4199/ 。修改源文件后重新 `npm run build`，刷新浏览器。`PORT=4200 npm run dev` 可指定端口。
 
 ## 展示与部署
+
+阿里云 Ubuntu 部署配置位于 `deploy/`：Node 服务由 systemd 管理，只监听 `127.0.0.1:4199`，Nginx 代理网页、深链接和 `/ws`，并压缩文字资源。目标域名为 `rhine.reverieach.com`。2026-10-15 已完成 Ubuntu 24.04、Node.js 24、Nginx、DNS A 记录与 80/443 安全组规则，应用和 Nginx 已设为开机自启。
+
+服务配置约定 Node.js 24+ 位于 `/usr/local/bin/node`，运行目录为 `/opt/rhine-lab`，使用无登录权限的 `rhine-lab` 服务账号。将 `deploy/rhine-lab.service` 安装到 `/etc/systemd/system/`，将 `deploy/rhine-lab.nginx.conf` 安装为 Nginx 站点；启用前需执行 `nginx -t`。仓库中的 Nginx 文件为 HTTP 基础配置，服务器上的 Certbot 已增加 HTTPS 与跳转配置；不要用基础文件直接覆盖线上证书配置。安全组不应开放 Node 的 4199 端口。
+
+首张 Let's Encrypt 证书已签发，有效期至 2027-01-12，`certbot.timer` 已启用。当前备案处于阿里云初审，公网 HTTP 返回 `Non-compliance ICP Filing`，续期演练的 HTTP 验证也被 403 阻断，**自动续期尚未验收通过**。待备案通过后，补上实际备案号和工信部链接，重新执行 `sudo certbot renew --dry-run`，再验收首页、十四个展品、音乐、搜索和 WebSocket；暂时的 HTTPS 可达不能视为已完成正式开放。
 
 同一局域网的设备可通过 `http://<运行电脑的局域网 IP>:4199/` 访问；电脑需保持运行，防火墙需允许连接。这不是公网网址。
 
