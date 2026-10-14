@@ -84,7 +84,7 @@ await adaptModule('ContactUI', input => {
   const entries = [
     ['"CONTACT US"', '"RHINE LAB"'], ['"Contact Us"', '"RHINE LAB"'],
     ['"LAX"', '"LIFE"'], ['"SYD"', '"SKY"'], ['"NYC"', '"SKY"'], ['"AMS"', '"DREAM"'],
-    ['"Los Angeles"', '"Life"'], ['"New York City"', '"Discovery"'], ['"Amsterdam"', '"Dream"'],
+    ['"Los Angeles"', '"Life"'], ['"New York City"', '"Sky"'], ['"Amsterdam"', '"Dream"'],
     ['"Privacy Notice"', '"Artwork Sources"'], ['"Newsletter Signup"', '"Hypergryph"'], ['"Careers"', '"Arknights"'],
     ['"HELLO@ACTIVETHEORY.NET"', '"GITHUB / REVERIEACH"'], ['"Email us at hello@activetheory.net"', '"Project by reverieach on GitHub"'],
     ['"mailto:hello@activetheory.net"', JSON.stringify(github)],
