@@ -1,5 +1,5 @@
 {
-  "name": "open-active-theory",
+  "name": "rhine-lab-art",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -23,11 +23,11 @@
     "sharp": "^0.34.5"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   },
-  "description": "Daily Design .Art website with Active Theory Hydra/WebGL motion",
+  "description": "Rhine Lab art archive with preserved Active Theory WebGL motion",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Snychng/open-active-theory.git"
+    "url": "https://github.com/reverieach/rhine-lab-art.git"
   }
 }

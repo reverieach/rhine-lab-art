@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
+import sharp from 'sharp';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
@@ -41,8 +42,14 @@ assert.equal(sha(await fs.readFile(path.join(publicDir, 'assets/shaders/compiled
 const projects = JSON.parse(await fs.readFile(path.join(publicDir, 'remote/cms/projects-dev.json')));
 assert.equal(projects.length, 14); assert.equal(new Set(projects.map(p => p.slug)).size, 14);
 assert.equal(new Set(projects.map(p => p.video.url)).size, 14, '当前卡片媒体标识必须独立');
-for (const project of projects) {
-  assert.match(project.projectURL, /^https:\/\/github\.com\/Snychng/);
+for (const [index, project] of projects.entries()) {
+  assert.equal(project.priority, index + 1);
+  const file = path.join(publicDir, project.video.url);
+  const meta = await sharp(file).metadata();
+  assert.equal(meta.width, 1600); assert.equal(meta.height, 900);
+  const original = path.join(root, 'src/assets/rhine', String(index + 1).padStart(2, '0') + '.png');
+  assert.equal(sha(await fs.readFile(file)), sha(await fs.readFile(original)), '原图不可重压缩');
+  assert.match(project.projectURL, /^https:\/\/prts\.wiki\/w\//);
   for (const url of [project.video.url, project.video.thumbnail, project.projectLogo.url]) {
     assert.ok((await fs.stat(path.join(publicDir, url))).isFile(), url);
     assert.ok(!/\.mp4|remote\/media/.test(url));
@@ -50,7 +57,7 @@ for (const project of projects) {
 }
 for (const filename of ['scripts/build.mjs', 'scripts/server.mjs', 'public/assets/js/app.1780406240914.js']) execFileSync(process.execPath, ['--check', path.join(root, filename)]);
 const base = process.env.PREVIEW_URL || 'http://localhost:4199';
-assert.equal((await fetch(base + '/work/dispersion')).status, 200);
+assert.equal((await fetch(base + '/work/origin')).status, 200);
 const response = await fetch(base + '/assets/geometry/daily/monogram-home.json'); assert.equal(response.status, 200);
 assert.ok((await response.json()).position.length > 1000);
 const referenceShader = await fetch(base + '/assets/shaders/compiled.vs'); assert.equal(sha(Buffer.from(await referenceShader.arrayBuffer())), report.shaders.sha256);
@@ -61,8 +68,8 @@ const post = async (action, data) => {
   assert.equal(r.status, 200); return r.json();
 };
 const { id } = await post('createThread');
-await post('createMessage', { threadId: id, content: '色散' });
-assert.equal((await post('createRun', { threadId: id })).slug, 'dispersion');
+await post('createMessage', { threadId: id, content: '晨曦' });
+assert.equal((await post('createRun', { threadId: id })).slug, 'daybreak');
 assert.ok((await post('listMessage', { threadId: id })).text.length > 30);
 await fs.writeFile(path.join(root, '.artifacts/static-verification.json'), JSON.stringify({ passed: true, preservedModules: report.preservedModules.length, preservedUILFields: preservedFields, replacedContentFields: allowed.size, shadersIdentical: true, projectMedia: 14, services: ['deep-link', 'geometry', 'shader-readback', 'worker-range', 'local-search'] }, null, 2));
 console.log(`通过：${report.preservedModules.length} 个原版模块、${preservedFields} 项原版参数、GLSL 回读、14 项媒体、深链接、worker 资源与本地检索。`);

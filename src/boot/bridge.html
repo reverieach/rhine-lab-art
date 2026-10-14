@@ -1,0 +1,8 @@
+<link rel="stylesheet" href="/assets/boot/boot.css">
+<script>
+window.rhineBoot = { percent: 0, loaded: false, progress(value) { this.percent = value; },
+  handoff() { this.loaded = true; return new Promise(resolve => { this.release = resolve; }); },
+  reveal() { document.getElementById('rhine-boot')?.classList.add('leaving'); setTimeout(() => document.getElementById('rhine-boot')?.remove(), 1550); }
+};
+</script>
+<script type="module" src="/assets/boot/entry.js"></script>

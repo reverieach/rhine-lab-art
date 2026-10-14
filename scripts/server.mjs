@@ -39,7 +39,7 @@ async function assistant(req, res, action) {
   if (action === 'createMessage') { thread.query = data.content || ''; return json(res, { message: thread.query }); }
   if (action === 'createRun') {
     const projects = JSON.parse(await fsp.readFile(path.join(publicDir, 'remote/cms/projects-dev.json'), 'utf8'));
-    const translations = [['色散', 'dispersion'], ['星环', 'star ring'], ['画廊', 'gallery'], ['环绕', 'orbit'], ['弹弓', 'slingshot'], ['光爆', 'genesis'], ['玻璃', 'glass'], ['动效', 'motion'], ['交互', 'interaction']];
+    const translations = [['起点', 'origin'], ['名字', 'a name'], ['裂隙', 'fracture'], ['美梦', 'the dream'], ['受试者', 'the subjects'], ['梦醒', 'awakening'], ['天际', 'horizon'], ['交会', 'intersection'], ['升空', 'ascent'], ['分离', 'parting'], ['晨曦', 'daybreak'], ['远行', 'farewell'], ['归属', 'belonging'], ['此后', 'the way forward'], ['克丽斯腾', 'kristen'], ['赫默', 'silence'], ['塞雷娅', 'saria'], ['伊芙利特', 'ifrit'], ['多萝西', 'dorothy']];
     let query = thread.query.toLowerCase();
     translations.forEach(([a, b]) => { query = query.replaceAll(a, b); });
     const terms = query.match(/[a-z0-9]+/g)?.filter(x => x.length > 2 && !['the', 'and', 'for', 'looking', 'show', 'what', 'are', 'you', 'some', 'projects', 'can', 'please'].includes(x)) || [];
@@ -152,4 +152,4 @@ wss.on('connection', socket => {
   });
   socket.on('close', () => leave(socket));
 });
-server.listen(port, '0.0.0.0', () => console.log(`Daily Design · 原站动效：http://localhost:${server.address().port}`));
+server.listen(port, '0.0.0.0', () => console.log(`Rhine Lab · Art Archive：http://localhost:${server.address().port}`));

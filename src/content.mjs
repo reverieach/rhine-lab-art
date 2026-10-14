@@ -1,30 +1,34 @@
-export const github = 'https://github.com/Snychng/daily-design';
-export const brand = 'Daily Design .Art';
-export const slogan = 'Explore the art of UI, one day at a time.';
+export const github = 'https://github.com/reverieach/rhine-lab-art';
+export const brand = 'RHINE LAB';
+export const slogan = 'The shape of a dream.';
 
-// 前六项来自工作区实验；其余为 UI/UX 概念研究，均不声称商业交付。
-export const studies = [
-  ['Dispersion', 'dispersion', 'e9ae98', 'UI, Optics, Glass', 'A study of optical distortion: a glass surface shifts the image beneath it, while subtle color fringes reveal its edges.'],
-  ['Star Ring', 'star-ring', '88a9d1', 'UX, Space, Motion', 'Circular planes move through a shared spatial orbit. Near and far surfaces trade places, making depth visible through scale and occlusion.'],
-  ['Gallery', 'gallery', 'd3c7b8', 'UI, Typography, Motion', 'An editorial carousel moves between front-facing artwork and edge-on silhouettes. Reflections turn the boundaries into part of the composition.'],
-  ['Orbit', 'orbit', 'a3c4b1', 'UX, Interaction, Space', 'A selected card leaves a tilted orbit, turns toward the viewer and returns to its place. The transition connects exploration and focus.'],
-  ['Glass Slingshot', 'slingshot', 'e5ab92', 'UX, Physics, Feedback', 'A glass track bends under a dragged marble. Release turns stored tension into a small arc of motion, followed by a grounded return.'],
-  ['Genesis', 'genesis', 'b4b5bc', 'UI, Light, Motion', 'A small light core opens into a new visual space. Brightness, scale and contrast carry the eye through the transition.'],
-  ['Optic Type', 'dispersion', 'd5b8ae', 'UI, Typography, Optics', 'A concept study of type seen through a refractive surface. Optical detail supports the reading rhythm and keeps the words clear.'],
-  ['Liquid Feedback', 'slingshot', 'dca391', 'UX, Feedback, Glass', 'A concept study of tactile feedback. A small change in tension, shape and reflection makes the state of a control easier to understand.'],
-  ['Focus Field', 'orbit', 'b2c6b6', 'UX, Space, Interaction', 'A concept study of focus in a spatial interface. Selection brings one object closer while retaining a clear path back to the collection.'],
-  ['Afterimage', 'gallery', 'c5becb', 'UI, Typography, Motion', 'A concept study of editorial pacing. Type, image and reflection move together, leaving a brief visual trace between one composition and the next.'],
-  ['Material Lab', 'dispersion', '94adca', 'UI, Optics, Glass', 'A concept study of surface, depth and legibility. Glass reveals the image below it through distortion and carefully placed highlights.'],
-  ['Spatial Notes', 'star-ring', 'a7b7cb', 'UX, Space, Typography', 'A concept study of arranging ideas in depth. Scale, overlap and camera distance create a readable sequence without losing the surrounding context.'],
-  ['Gesture Studies', 'slingshot', 'e7b49f', 'UX, Interaction, Physics', 'A concept study of gesture and consequence. A control responds to the direction of a drag, carries its momentum and settles into a clear final state.'],
-  ['Light Studies', 'genesis', 'c6c1be', 'UI, Light, Motion', 'A concept study of light as a transition. A focused highlight expands into another scene, connecting two compositions through a shared point of attention.']
-].map(([name, cover, uiColor, tags, description], index) => ({
-  id: `daily-study-${index + 1}`,
-  name, slug: name.toLowerCase().replaceAll(' ', '-'), description,
-  clientName: index < 6 ? 'Daily Design .Art / Experiment' : 'Daily Design .Art / Concept',
-  completionDate: '2026-09-30T00:00:00.000Z', uiColor, tags,
-  priority: index + 1, projectURL: github,
-  projectLogo: { url: '/assets/daily/wordmark.png', width: 400, height: 200 },
-  // 原 WorkItem 以媒体 URL 判断当前卡片；每项保持唯一 URL，避免同时激活复用封面的卡片。
-  video: { url: `/assets/daily/study-${name.toLowerCase().replaceAll(' ', '-')}.jpg`, thumbnail: `/assets/daily/cover-${cover}.jpg` }
-}));
+// A thematic exhibition, not a chronological retelling. Captions are original fan writing.
+const chapters = [
+  ['Origin', '8da8bd', 'Vision, Kristen', 'Different dreams once shared a single address. Kristen looks toward a sky whose limits she refuses to accept. What begins as a question becomes an institution. / Lone Trail: CW-10 END.'],
+  ['A Name', 'd5a07f', 'Life, Ifrit, Silence', 'She has a name, and a future of her own. In the space between Silence and Ifrit, research acquires a responsibility that no result can erase. / Lone Trail: CW-9 END.'],
+  ['Fracture', 'afa6bf', 'Power, Hooleyak', 'Ambition does not belong to science alone. With Hooleyak, knowledge becomes a bargain: the same horizon can conceal very different intentions. / Lone Trail: CW-6 BEG.'],
+  ['The Dream', 'b7c6a6', 'Dream, Dorothy', 'What if pain could be kept outside a dream? Dorothy imagines a refuge for people whose lives have been made expendable. The tenderness of that wish makes its cost harder to see. / Dorothy\'s Vision: DV-8 END.'],
+  ['The Subjects', '9cbbc1', 'Life, Dorothy', 'Beyond the promise of peace, someone is still waiting to wake. A laboratory can count its subjects; responsibility begins when it sees the people inside those numbers. / Dorothy\'s Vision: DV-6 BEG.'],
+  ['Awakening', 'c1b49f', 'Dream, Choice', 'A future cannot be given without the freedom to refuse it. Waking breaks the perfect enclosure and returns uncertainty, pain and possibility to the people who must live with them. / Dorothy\'s Vision: DV-8 END.'],
+  ['Horizon', '95afc4', 'Sky, Kristen', 'Another question remains overhead. Beyond the laboratory and its fractures, the sky persists as an unfinished experiment. Every answer makes the boundary more visible. / Dorothy\'s Vision: DV-ST-2.'],
+  ['Intersection', 'b4a7bd', 'Life, Saria, Kristen', 'Paths that separated meet again. Shared history survives disagreement, but it cannot make the next decision for either person. / Lone Trail: CW-6 END.'],
+  ['Ascent', 'b7c4d1', 'Sky, Kristen', 'All eyes turn toward the same sky. An impossible machine rises on accumulated labor, sacrifice and belief. The dream is singular; its consequences are shared. / Lone Trail: CW-8 END.'],
+  ['Parting', 'b2afc8', 'Sky, Saria, Kristen', 'To have travelled together is not to share the final destination. At the threshold, devotion and refusal can look like opposite forms of the same care. / Lone Trail: CW-10 BEG.'],
+  ['Daybreak', 'd6b990', 'Life, Dorothy', 'A pause in the ascent: morning returns us to the world below. This memory from Dorothy\'s Vision asks what remains worth protecting, even while someone reaches for the stars. / Dorothy\'s Vision: DV-8 BEG.'],
+  ['Farewell', 'a3b8d5', 'Sky, Kristen', 'At last, the imagined distance becomes a view. Discovery opens a world and leaves another behind. The farewell belongs as much to those below as to the traveller. / Lone Trail: CW-ST-4.'],
+  ['Belonging', 'b5c8bc', 'Life, Muelsyse', 'Those who remain must also find a way forward. Belonging is neither a perfect institution nor a sealed refuge; it is the possibility of being understood by another person. / Lone Trail: CW-ST-3.'],
+  ['The Way Forward', 'c7bba6', 'Life, Silence, Saria', 'The future also begins with a hand offered to someone beside you. After the ascent, Silence and Saria bring the exhibition back to a human scale: care, consequence, and the work that continues. / Lone Trail: CW-ST-3.']
+];
+const files = ['Avg_38_i04.png','Avg_38_i09.png','Avg_38_i03.png','Avg_29_i06.png','Avg_29_i03.png','Avg_29_i07.png','Avg_29_i10.png','Avg_38_i06.png','Avg_38_i10.png','Avg_38_i08.png','Avg_29_i12.png','Avg_38_i12.png','Avg_38_i05.png','Avg_38_i13.png'];
+export const studies = chapters.map(([name, uiColor, tags, description], index) => {
+  const number = String(index + 1).padStart(2, '0');
+  const slug = name.toLowerCase().replaceAll(' ', '-');
+  const thumbnail = `/assets/rhine/${number}.png`;
+  return {
+    id: `rhine-${number}`, name, slug, description, uiColor, tags,
+    clientName: `RHINE LAB / ARCHIVE ${number}`, completionDate: '2026-10-14T00:00:00.000Z',
+    priority: index + 1, projectURL: `https://prts.wiki/w/文件:${files[index]}`,
+    projectLogo: { url: '/assets/daily/wordmark.png', width: 400, height: 200 },
+    video: { url: thumbnail, thumbnail }
+  };
+});

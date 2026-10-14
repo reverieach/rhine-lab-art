@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/LBEILC/RhineLabUI",
+  "commit": "12cc5e4013acb9408f753ff71de6b8492299b7c8",
+  "baseRepository": "https://github.com/Snychng/open-active-theory",
+  "baseCommit": "52f3c0f54bc85e9e2084116351e3fdfec49c925c",
+  "scope": "BootSequence through appTime 20.9, shared logo and authored lettering; native commercial webfonts disabled",
+  "adaptation": "Dark inversion, real scene readiness gate, responsive overlay and fade handoff"
+}
