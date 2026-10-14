@@ -201,7 +201,9 @@ for (const file of await fs.readdir(originals)) await write(`assets/rhine/${file
 await write('assets/daily/hero.jpg', await sharp(path.join(originals, '12.png')).jpeg({ quality: 95 }).toBuffer());
 const svg = rhineSVG;
 await write('assets/daily/monogram.png', await sharp(Buffer.from(svg)).png().toBuffer());
-await write('assets/daily/wordmark.png', await sharp(Buffer.from(svg)).png().toBuffer());
+// LogoShader discards the outer 10% on each side; keep the full mark inside it.
+await write('assets/daily/wordmark.png', await sharp(Buffer.from(svg)).resize(304, 152)
+  .extend({ left: 48, right: 48, top: 24, bottom: 24, background: '#00000000' }).png().toBuffer());
 const githubSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.1c-3.34.73-4.04-1.42-4.04-1.42-.55-1.4-1.34-1.77-1.34-1.77-1.09-.75.08-.73.08-.73 1.21.09 1.85 1.25 1.85 1.25 1.07 1.84 2.8 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.94 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.54 11.54 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.64-5.48 5.94.43.37.82 1.1.82 2.22v3.16c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/></svg>';
 await write('assets/daily/github.png', await sharp(Buffer.from(githubSVG)).resize(128, 128).png().toBuffer());
 for (const size of [16, 32, 180]) {

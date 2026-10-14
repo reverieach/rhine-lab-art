@@ -40,6 +40,12 @@ assert.throws(() => verifyMotionFields(invalidUIL));
 const preservedFields = verifyMotionFields(brandedUIL);
 assert.equal(sha(await fs.readFile(path.join(publicDir, 'assets/shaders/compiled.vs'))), report.shaders.sha256);
 const projects = JSON.parse(await fs.readFile(path.join(publicDir, 'remote/cms/projects-dev.json')));
+// The card shader clips UV x < .1 and x > .9. Visible logo pixels must survive.
+const logo = await sharp(path.join(publicDir, 'assets/daily/wordmark.png')).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+for (let y = 0; y < logo.info.height; y++) for (let x = 0; x < logo.info.width; x++) {
+  if (logo.data[(y * logo.info.width + x) * 4 + 3] > 0)
+    assert.ok(x / logo.info.width > .1 && x / logo.info.width < .9, '展品标志超出原着色器的安全区域');
+}
 assert.equal(projects.length, 14); assert.equal(new Set(projects.map(p => p.slug)).size, 14);
 assert.equal(new Set(projects.map(p => p.video.url)).size, 14, '当前卡片媒体标识必须独立');
 for (const [index, project] of projects.entries()) {
