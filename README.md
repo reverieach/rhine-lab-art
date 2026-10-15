@@ -1,6 +1,10 @@
 # RHINE LAB — The shape of a dream
 
-以莱茵生命为主题的个人《明日方舟》艺术研究网站。在 [open-active-theory](https://github.com/Snychng/open-active-theory) 的场景上替换品牌、十四组 CG 与文案，加入 [RhineLabUI](https://github.com/LBEILC/RhineLabUI) 的登录动画前半段。项目仓库：[reverieach/rhine-lab-art](https://github.com/reverieach/rhine-lab-art)。已部署至阿里云，正式公网访问仍等待备案审核及验收。
+以莱茵生命为主题的个人《明日方舟》交互艺术网站：十四幅 CG、实时三维场景、鼠标粒子交互，以及深色实验室登录开场。
+
+**[访问网站](https://rhine.reverieach.com) · [项目仓库](https://github.com/reverieach/rhine-lab-art)**
+
+基于 [open-active-theory](https://github.com/Snychng/open-active-theory) 的场景与动效进行内容适配，登录开场改编自 [RhineLabUI](https://github.com/LBEILC/RhineLabUI)。本项目为非官方同人艺术研究，与鹰角网络及 Active Theory 无隶属关系。源码公开不代表第三方 CG、音乐、字体与运行时获得统一开源授权，详见[来源与许可](#来源与许可)。
 
 ## 运行画面
 
@@ -24,21 +28,13 @@ npm run dev
 
 ## 展示与部署
 
-阿里云 Ubuntu 部署配置位于 `deploy/`：Node 服务由 systemd 管理，只监听 `127.0.0.1:4199`，Nginx 代理网页、深链接和 `/ws`，并压缩文字资源。目标域名为 `rhine.reverieach.com`。2026-10-15 已完成 Ubuntu 24.04、Node.js 24、Nginx、DNS A 记录与 80/443 安全组规则，应用和 Nginx 已设为开机自启。
+项目需要 Node 服务来处理深链接、站内搜索和 WebSocket；不要只把 `public/` 当作完整服务部署。
 
-服务配置约定 Node.js 24+ 位于 `/usr/local/bin/node`，运行目录为 `/opt/rhine-lab`，使用无登录权限的 `rhine-lab` 服务账号。将 `deploy/rhine-lab.service` 安装到 `/etc/systemd/system/`，将 `deploy/rhine-lab.nginx.conf` 安装为 Nginx 站点；启用前需执行 `nginx -t`。仓库中的 Nginx 文件为 HTTP 基础配置，服务器上的 Certbot 已增加 HTTPS 与跳转配置；不要用基础文件直接覆盖线上证书配置。安全组不应开放 Node 的 4199 端口。
+- Ubuntu / Nginx / systemd 示例见 [部署说明](docs/DEPLOYMENT.md) 和 `deploy/`。
+- [render.yaml](render.yaml) 是可选的 Render 部署模板；创建服务前自行核对平台当前套餐、配额与区域可达性。
+- 本地服务默认监听所有网卡，便于局域网预览。仅本机访问可用 `HOST=127.0.0.1 npm run dev`。
 
-首张 Let's Encrypt 证书已签发，有效期至 2027-01-12，`certbot.timer` 已启用。当前备案处于阿里云初审，公网 HTTP 返回 `Non-compliance ICP Filing`，续期演练的 HTTP 验证也被 403 阻断，**自动续期尚未验收通过**。待备案通过后，补上实际备案号和工信部链接，重新执行 `sudo certbot renew --dry-run`，再验收首页、十四个展品、音乐、搜索和 WebSocket；暂时的 HTTPS 可达不能视为已完成正式开放。
-
-同一局域网的设备可通过 `http://<运行电脑的局域网 IP>:4199/` 访问；电脑需保持运行，防火墙需允许连接。这不是公网网址。
-
-仓库提供 [render.yaml](render.yaml)，使用 Render 新加坡区域的免费 Node Web Service，保留现有深链接、本地搜索和 WebSocket 服务，不需要数据库。当前只准备了配置，尚未创建云服务、获得公网地址或验证国内访问。
-
-部署时登录 [Render](https://dashboard.render.com/)，创建 Blueprint，连接此仓库并使用根目录配置。确认服务为 **Free**，构建命令 `npm ci --include=dev && npm run build`，启动命令 `npm start`。成功后平台分配 `onrender.com` 子域名，再检查首页、展品深链接、素材加载和音乐。国内各运营商的可达性和速度需要实际验证。
-
-[免费方案](https://render.com/docs/free)闲置 15 分钟后休眠，首次重新访问可能等待约一分钟；有实例时数、流量和构建额度。为保持零费用，不添加付款方式；超额时平台暂停相应服务或构建。若账户已有付款方式，应先核对费用控制。`plan: free` 已显式指定，不依赖平台的付费默认值。
-
-另一候选 EdgeOne Pages 的默认域名存在中国大陆访问限制：相关区域需要有效期 3 小时的预览链接，或返回 401；稳定地址需要自定义域名，参见[官方域名说明](https://edgeone.cloud.tencent.com/pages/document/175191784523485184)。本项目还包含 Node 服务和大于 25 MB 的单个资源，不应直接当作普通静态目录上传。当前未为该平台修改资源或部署。
+仓库不包含服务器凭据、账户信息、备案资料、证书私钥或录屏成片。
 
 ## 已接入内容
 
@@ -62,6 +58,12 @@ npm run dev
 先启动服务，再运行 `npm run check`。它核验受保护模块、2577 项原始参数、shader、14 张原图尺寸与哈希、深链接、Range 与本地搜索。原仓库完整浏览器检查仍可用 `npm test`，记录输出到忽略目录 `.artifacts/`。本次另外使用桌面应用浏览器检查真实 WebGL 页面；桌面窄屏模拟不等于真实手机 GPU 验收。
 
 主站音乐默认关闭。已移除 About 中无关的手机配对二维码、重复社交图标及原机构的聊天隐私提示。About 保留项目 GitHub、PRTS、鹰角官网与明日方舟官网；展品保留各自的 PRTS 原图来源链接。
+
+## 隐私与贡献
+
+提交前检查 `git diff --cached`，不要提交 `.env`、浏览器会话、云账户资料、私钥或部署备份；本地测试输出放在 `.artifacts/`。建议使用 GitHub 提供的 `noreply` 提交邮箱。安装 [Gitleaks](https://github.com/gitleaks/gitleaks) 后可运行 `gitleaks git . --log-opts="--all" --redact` 扫描历史；配置仅排除已核实的动画表达式误报。
+
+发现疑似凭据时，请勿在公开 Issue 中粘贴原值；先通过 GitHub 私密漏洞报告联系维护者。
 
 ## 来源与许可
 

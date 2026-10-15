@@ -1,0 +1,11 @@
+title = "Rhine Lab credential scanning"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Animation interpolation expression, not an API key"
+condition = "AND"
+regexTarget = "match"
+paths = ['''^(public/assets/js/app\.1780406240914\.js|vendor/activetheory/(runtime|app\.1780406240914)\.js)$''']
+regexes = ['''^numberKeys,weight=elapsed-prev;$''']
